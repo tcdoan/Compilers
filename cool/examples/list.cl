@@ -81,9 +81,9 @@ class Cons inherits List {
 
    init(i : Int, rest : List) : List {
       {
-	 car <- i;
-	 cdr <- rest;
-	 self;
+         car <- i;
+         cdr <- rest;
+         self;
       }
    };
 
@@ -104,13 +104,15 @@ class Main inherits IO {
    -- Print all elements of the list. Calls itself recursively with
    -- the tail of the list, until the end of the list is reached.
 
-   print_list(l : List) : Object {
+   print_list(l : List) : Object 
+   {
       if l.isNil() then out_string("\n")
-                   else {
-			   out_int(l.head());
-			   out_string(" ");
-			   print_list(l.tail());
-		        }
+      else 
+      {
+         out_int(l.head());
+         out_string(" ");
+         print_list(l.tail());
+      }
       fi
    };
 
@@ -123,15 +125,16 @@ class Main inherits IO {
    -- List, and thus the method isNil in the List class is called and
    -- returns true.
 
-   main() : Object {
+   main() : Object 
+   {
       {
-	 mylist <- new List.cons(1).cons(2).cons(3).cons(4).cons(5);
-	 while (not mylist.isNil()) loop
-	    {
-	       print_list(mylist);
-	       mylist <- mylist.tail();
-	    }
-	 pool;
+         mylist <- new List.cons(1).cons(2).cons(3).cons(4).cons(5);
+         while (not mylist.isNil()) loop
+         {
+            print_list(mylist);
+            mylist <- mylist.tail();
+         }
+         pool;
       }
    };
 
