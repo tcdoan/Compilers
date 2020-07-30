@@ -43,28 +43,29 @@ void fatal_error(char *msg)
 void print_escaped_string(ostream& str, const char *s)
 {
   while (*s) {
-    switch (*s) {
-    case '\\' : str << "\\\\"; break;
-    case '\"' : str << "\\\""; break;
-    case '\n' : str << "\\n"; break;
-    case '\t' : str << "\\t"; break;
-    case '\b' : str << "\\b"; break;
-    case '\f' : str << "\\f"; break;
+    switch (*s) 
+    {
+      case '\\' : str << "\\\\"; break;
+      case '\"' : str << "\\\""; break;
+      case '\n' : str << "\\n"; break;
+      case '\t' : str << "\\t"; break;
+      case '\b' : str << "\\b"; break;
+      case '\f' : str << "\\f"; break;
 
-    default:
-      if (isprint(*s))
-	str << *s;
-      else 
-	// 
-	// Unprintable characters are printed using octal equivalents.
-	// To get the sign of the octal number correct, the character
-	// must be cast to an unsigned char before coverting it to an
-	// integer.
-	//
-	str << '\\' << oct << setfill('0') << setw(3)
-	    << (int) ((unsigned char) (*s))
-	    << dec << setfill(' ');
-      break;
+      default:
+        if (isprint(*s))
+          str << *s;
+        else 
+          // 
+          // Unprintable characters are printed using octal equivalents.
+          // To get the sign of the octal number correct, the character
+          // must be cast to an unsigned char before coverting it to an
+          // integer.
+          //
+          str << '\\' << oct << setfill('0') << setw(3)
+              << (int) ((unsigned char) (*s))
+              << dec << setfill(' ');
+        break;
     }
     s++;
   }
@@ -75,51 +76,52 @@ void print_escaped_string(ostream& str, const char *s)
 //
 char *cool_token_to_string(int tok)
 {
-  switch (tok) {
-  case 0:            return("EOF");        break;
-  case (CLASS):      return("CLASS");      break;
-  case (ELSE):       return("ELSE");       break;
-  case (FI):         return("FI");         break;
-  case (IF):         return("IF");         break;
-  case (IN):         return("IN");         break;
-  case (INHERITS):   return("INHERITS");   break;
-  case (LET):        return("LET");        break;
-  case (LOOP):       return("LOOP");       break;
-  case (POOL):       return("POOL");       break;
-  case (THEN):       return("THEN");       break;
-  case (WHILE):      return("WHILE");      break;
-  case (ASSIGN):     return("ASSIGN");     break;
-  case (CASE):       return("CASE");       break;
-  case (ESAC):       return("ESAC");       break;
-  case (OF):         return("OF");         break;
-  case (DARROW):     return("DARROW");     break;
-  case (NEW):        return("NEW");        break;
-  case (STR_CONST):  return("STR_CONST");  break;
-  case (INT_CONST):  return("INT_CONST");  break;
-  case (BOOL_CONST): return("BOOL_CONST"); break;
-  case (TYPEID):     return("TYPEID");     break;
-  case (OBJECTID):   return("OBJECTID");   break;
-  case (ERROR):      return("ERROR");      break;
-  case (LE):         return("LE");         break;
-  case (NOT):        return("NOT");        break;
-  case (ISVOID):     return("ISVOID");     break;
-  case '+': return("'+'"); break;
-  case '/': return("'/'"); break;
-  case '-': return("'-'"); break;
-  case '*': return("'*'"); break;
-  case '=': return("'='"); break;
-  case '<': return("'<'"); break;
-  case '.': return("'.'"); break;
-  case '~': return("'~'"); break;
-  case ',': return("','"); break;
-  case ';': return("';'"); break;
-  case ':': return("':'"); break;
-  case '(': return("'('"); break;
-  case ')': return("')'"); break;
-  case '@': return("'@'"); break;
-  case '{': return("'{'"); break;
-  case '}': return("'}'"); break;
-  default:  return("<Invalid Token>");
+  switch (tok) 
+  {
+    case 0:            return("EOF");        break;
+    case (CLASS):      return("CLASS");      break;
+    case (ELSE):       return("ELSE");       break;
+    case (FI):         return("FI");         break;
+    case (IF):         return("IF");         break;
+    case (IN):         return("IN");         break;
+    case (INHERITS):   return("INHERITS");   break;
+    case (LET):        return("LET");        break;
+    case (LOOP):       return("LOOP");       break;
+    case (POOL):       return("POOL");       break;
+    case (THEN):       return("THEN");       break;
+    case (WHILE):      return("WHILE");      break;
+    case (ASSIGN):     return("ASSIGN");     break;
+    case (CASE):       return("CASE");       break;
+    case (ESAC):       return("ESAC");       break;
+    case (OF):         return("OF");         break;
+    case (DARROW):     return("DARROW");     break;
+    case (NEW):        return("NEW");        break;
+    case (STR_CONST):  return("STR_CONST");  break;
+    case (INT_CONST):  return("INT_CONST");  break;
+    case (BOOL_CONST): return("BOOL_CONST"); break;
+    case (TYPEID):     return("TYPEID");     break;
+    case (OBJECTID):   return("OBJECTID");   break;
+    case (ERROR):      return("ERROR");      break;
+    case (LE):         return("LE");         break;
+    case (NOT):        return("NOT");        break;
+    case (ISVOID):     return("ISVOID");     break;
+    case '+': return("'+'"); break;
+    case '/': return("'/'"); break;
+    case '-': return("'-'"); break;
+    case '*': return("'*'"); break;
+    case '=': return("'='"); break;
+    case '<': return("'<'"); break;
+    case '.': return("'.'"); break;
+    case '~': return("'~'"); break;
+    case ',': return("','"); break;
+    case ';': return("';'"); break;
+    case ':': return("':'"); break;
+    case '(': return("'('"); break;
+    case ')': return("')'"); break;
+    case '@': return("'@'"); break;
+    case '{': return("'{'"); break;
+    case '}': return("'}'"); break;
+    default:  return("<Invalid Token>");
   }
 }
 
@@ -218,7 +220,6 @@ char *strdup(const char *s)
   char *news;
 
   if (s == NULL) return(NULL);
-
   news = (char *)malloc(strlen(s)+1);
   strcpy(news, s);
   return(news);
@@ -231,8 +232,9 @@ char *strdup(const char *s)
 // function to add pad
 //
 ///////////////////////////////////////////////////////////////////////////
-char *pad(int n) {
+char *pad(int n) 
+{
     if (n > 80) return padding;
-    if (n <= 0)  return "";
+    if (n <= 0) return "";
     return padding+(80-n);
 }
