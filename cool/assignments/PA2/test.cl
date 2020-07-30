@@ -78,7 +78,8 @@ class CellularAutomaton inherits IO {
 class Main {
     cells : CellularAutomaton;
    
-    main() : SELF_TYPE {
+    main() : SELF_TYPE 
+    {
         {
             cells <- (new CellularAutomaton).init("         X         ");
             cells.print();
