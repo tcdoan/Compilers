@@ -1,22 +1,23 @@
 README file for Programming Assignment 2 (C++ edition)
 =====================================================
-
+cool root: /home/{user}/Compilers/cool
+=====================================================
 Your directory should contain the following files:
 
  Makefile
  README
  cool.flex
  test.cl
- lextest.cc      -> [cool root]/src/PA2/lextest.cc
- mycoolc         -> [cool root]/PA2/mycoolc
- stringtab.cc    -> [cool root]/PA2/stringtab.cc
- utilities.cc    -> [cool root]/PA2/utilities.cc
- handle_flags.cc -> [cool root]/PA2/handle_flags.cc
+ lextest.cc      -> [cool root]/assignments/PA2/lextest.cc
+ mycoolc         -> [cool root]/assignments/PA2/mycoolc
+ stringtab.cc    -> [cool root]/assignments/PA2/stringtab.cc
+ utilities.cc    -> [cool root]/assignments/PA2/utilities.cc
+ handle_flags.cc -> [cool root]/assignments/PA2/handle_flags.cc
  *.d             dependency files
  *.*             other generated files
 
 The include (.h) files for this assignment can be found in 
-[cool root]/PA2
+[cool root]/include/PA2
 
 	The Makefile contains targets for compiling and running your
 	program. DO NOT MODIFY.
