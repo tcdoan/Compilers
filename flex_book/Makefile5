@@ -1,4 +1,0 @@
-fb2-5:	fb2-5.l
-	flex -o $@.c $<
-	${CC} ${CFLAGS}  -o $@ $@.c
-    
