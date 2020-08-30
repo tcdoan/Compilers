@@ -55,7 +55,9 @@ the |
 this |
 to                     /* ignore */
 
-[a-z]+(\'(s|t))?   { addref(yylineno, curfilename, yytext, 0); }
+[a-z]+(\'(s|t))?   {
+  addref(yylineno, curfilename, yytext, 0);
+}
 .|\n                   /* ignore everything else */
 %%
 
@@ -74,13 +76,13 @@ symhash(char *sym)
 int nnew, nold;
 int nprobe;
 
-struct symbol *
-lookup(char* sym)
+struct symbol * lookup(char* sym)
 {
   struct symbol *sp = &symtab[symhash(sym)%NHASH];
   int scount = NHASH;		/* how many have we looked at */
 
-  while(--scount >= 0) {
+  while(--scount >= 0) 
+  {
     nprobe++;
     if(sp->name && !strcmp(sp->name, sym)) { nold++; return sp; }
 
@@ -98,8 +100,7 @@ lookup(char* sym)
 
 }
 
-void
-addref(int lineno, char *filename, char *word, int flags)
+void addref(int lineno, char *filename, char *word, int flags)
 {
   struct ref *r;
   struct symbol *sp = lookup(word);
@@ -124,13 +125,13 @@ addref(int lineno, char *filename, char *word, int flags)
  */
 
 /* aux function for sorting */
-static int
-symcompare(const void *xa, const void *xb)
+static int symcompare(const void *xa, const void *xb)
 {
   const struct symbol *a = xa;
   const struct symbol *b = xb;
 
-  if(!a->name) {
+  if(!a->name) 
+  {
     if(!b->name) return 0;	/* both empty */
     return 1;			/* put empties at the end */
   }
@@ -162,47 +163,52 @@ printrefs()
 
     /* now print the word and its references */
     printf("%10s", sp->name);
-    for(rp = rpp; rp; rp = rp->next) {
-      if(rp->filename == prevfn) {
-	printf(" %d", rp->lineno);
-      } else {
-	printf(" %s:%d", rp->filename, rp->lineno);
-	prevfn = rp->filename;
+    for(rp = rpp; rp; rp = rp->next) 
+    {
+      if(rp->filename == prevfn) 
+      {
+	      printf(" %d", rp->lineno);
+      } 
+      else 
+      {
+	      printf(" %s:%d", rp->filename, rp->lineno);
+	      prevfn = rp->filename;
       }
     }
     printf("\n");
   }
 }
 
-main(argc, argv)
-int argc;
-char **argv;
+main(int argc, char **argv)
 {
   int i;
 
-  if(argc < 2) { /* just read stdin */
+  if(argc < 2) 
+  { 
+    /* just read stdin */
     curfilename = "(stdin)";
     yylineno = 1;
     yylex();
-  } else
-  for(i = 1; i < argc; i++) {
-    FILE *f = fopen(argv[i], "r");
+  } 
+  else
+  {
+    for(i = 1; i < argc; i++) 
+    {
+      FILE *f = fopen(argv[i], "r");
   
-    if(!f) {
-      perror(argv[1]);
-      return (1);
-    }
-    curfilename = argv[i];	/* for addref */
+      if(!f) {
+        perror(argv[1]);
+        return (1);
+      }
+      curfilename = argv[i];	/* for addref */
 
-    yyrestart(f);
-    yylineno = 1;
-    yylex();
-    fclose(f);
+      yyrestart(f);
+      yylineno = 1;
+      yylex();
+      fclose(f);
+    }
   }
 
-  printf("old = %d, new = %d, total = %d, probes = %d, avg = %1.2f\n",
-	 nold, nnew, nold+nnew, nprobe, (float)nprobe / (nold+nnew));
-
+  printf("old = %d, new = %d, total = %d, probes = %d, avg = %1.2f\n", nold, nnew, nold+nnew, nprobe, (float)nprobe / (nold+nnew));
   printrefs();
 }
-

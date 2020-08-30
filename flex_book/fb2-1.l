@@ -15,18 +15,28 @@ int lines = 0;
 
 %%
 
-[a-zA-Z]+	{ words++; chars += strlen(yytext); }
-\n		{ chars++; lines++; }
-.		{ chars++; }
+[a-zA-Z]+	{ 
+  words++; 
+  chars += strlen(yytext); 
+}
+
+\n		{ 
+  chars++; 
+  lines++; 
+}
+
+.		{ 
+  chars++; 
+}
 
 %%
 
-main(argc, argv)
-int argc;
-char **argv;
+main(int argc, char **argv)
 {
-  if(argc > 1) {
-    if(!(yyin = fopen(argv[1], "r"))) {
+  if(argc > 1) 
+  {
+    if(!(yyin = fopen(argv[1], "r"))) 
+    {
       perror(argv[1]);
       return (1);
     }

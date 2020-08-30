@@ -25,19 +25,25 @@
 %%
 ^"#"[ \t]*include[ \t]*[\"<] { BEGIN IFILE; }
 
-<IFILE>[^ \t\n\">]+          { 
-                             { int c;
-			       while((c = input()) && c != '\n') ;
-			     }
-			     yylineno++;
-			     if(!newfile(yytext))
-                                yyterminate(); /* no such file */
-			     BEGIN INITIAL;
-                           }
+<IFILE>[^ \t\n\">]+ { 
+    { 
+      int c;
+			while((c = input()) && c != '\n') ;
+		}
 
-<IFILE>.|\n                { fprintf(stderr, "%4d bad include line\n", yylineno);
-				     yyterminate();
-			   }
+    yylineno++;
+	  if(!newfile(yytext))
+    {
+      yyterminate(); /* no such file */
+    }
+		BEGIN INITIAL;
+}
+
+<IFILE>.|\n {
+    fprintf(stderr, "%4d bad include line\n", yylineno);
+    yyterminate();
+}
+
 ^.                         { fprintf(yyout, "%4d %s", yylineno, yytext); }
 ^\n                        { fprintf(yyout, "%4d %s", yylineno++, yytext); }
 \n                         { ECHO; yylineno++; }
@@ -55,8 +61,7 @@ main(int argc, char **argv)
     yylex();
 }
 
-int
-  newfile(char *fn)
+int newfile(char *fn)
 {
   FILE *f = fopen(fn, "r");
   struct bufstack *bs = malloc(sizeof(struct bufstack));
@@ -80,8 +85,7 @@ int
   return 1;
 }
 
-int
-  popfile(void)
+int popfile(void)
 {
   struct bufstack *bs = curbs;
   struct bufstack *prevbs;
